@@ -6,12 +6,19 @@ import (
 	"github.com/disintegration/imaging"
 )
 
+// ResizeOptions contains options for resize operation.
 type ResizeOptions struct {
-	Width   int
-	Height  int
+	// Width is the new width of the image. If 0, it will be calculated from the height.
+	Width int
+
+	// Height is the new height of the image. If 0, it will be calculated from the width.
+	Height int
+
+	// Percent is the percent of the original image. If 0, it will be calculated from the width and height.
 	Percent float64
 }
 
+// NewResizeOptions returns a new ResizeOptions with default values.
 func NewResizeOptions() *ResizeOptions {
 	return &ResizeOptions{
 		Width:   0,
@@ -20,6 +27,7 @@ func NewResizeOptions() *ResizeOptions {
 	}
 }
 
+// Resize resizes the image to the given width and height or percent, provided in options.
 func Resize(img image.Image, options *ResizeOptions) (image.Image, error) {
 	if options == nil {
 		options = NewResizeOptions()

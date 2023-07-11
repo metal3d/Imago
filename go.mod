@@ -1,4 +1,4 @@
-module imago // github.com/metal3d/imago
+module github.com/metal3d/imago
 
 go 1.20
 

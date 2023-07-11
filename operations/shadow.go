@@ -16,10 +16,17 @@ import (
 // The offset is the offset of the shadow from the original image. Only the first
 // offset is used. If no offset is provided, the shadow is placed directly behind the original image.
 type DropShadowOptions struct {
-	Size    int
-	Sigma   float64
+	// Size is the extra size to add to the width and height of the original image to contain the shadow.
+	Size int
+
+	// Sigma is the amount of blur to apply to the shadow.
+	Sigma float64
+
+	// Opacity is the opacity of the shadow, 0 is transparent, 1 is opaque.
 	Opacity float64
-	Offset  image.Point
+
+	// Offset is the offset of the shadow from the original image. Only the first
+	Offset image.Point
 }
 
 // NewDropShadowOptions returns a new DropShadowOptions struct with default values.
@@ -61,5 +68,4 @@ func DropShadow(img image.Image, options *DropShadowOptions) (image.Image, error
 	shadow = imaging.Overlay(shadow, img, image.Pt(options.Size, options.Size), 1)
 
 	return shadow, nil
-
 }
