@@ -14,12 +14,9 @@ GPG_SIGN = metal3d@gmail.com
 
 GOFLAGS = -ldflags "-X main.version=$(VERSION)"
 
-version:
-	@echo $(VERSION)
-
 build:
 	@echo "Building..."
-	@go build $(GOFLAGS)  ./cmd/dropshadow
+	go build $(GOFLAGS) ./cmd/dropshadow
 
 dist:
 # if -dirty is present, we don't build
