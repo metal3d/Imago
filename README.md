@@ -11,7 +11,52 @@ Imago can get the image from file or standard input, and can save image in a new
 
 # Usage
 
+You should refer to the `help` commands for each subcommand.
+
+## Drop shadow
+
+```bash
+
+Add a drop shadow to an image
+
+Usage:
+  imago dropshadow [flags] input output
+
+Flags:
+  -h, --help            help for dropshadow
+  -f, --offset int      offset of the shadow (in pixels)
+  -o, --opacity float   opacity of the shadow (default 0.8)
+  -s, --sigma float     Blur sigma (standard deviation, strength of the blur) (default 25)
+  -z, --size int        size to extend the image (in pixels)
+```
+
+## Resize
+
+```bash
+Resize an image
+
+Usage:
+  imago resize [flags] input output
+
+Flags:
+  -d, --dimensions string   dimensions to resize the image (e.g. 100x200). If one value is set to 0, the value is calculated to respect the aspect-ratio. (default "0x0")
+  -h, --help                help for resize
+  -p, --percent float       percent to resize the image. If set, width and height are ignored
+```
+
 # Installation
+
+## Using "Go"
+
+You can install the binary for your platform using `go install`:
+
+```bash
+go install -u github.com/metal3d/imago@latest
+```
+
+## Get the release
+
+You can also download one of the binaries in the [release page](https://github.com/metal3d/Imago/releases). Place the binary in you `$PATH` and rename it to `imago`.
 
 # Why not ImageMagik (convert command)
 
