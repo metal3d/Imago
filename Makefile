@@ -17,7 +17,7 @@ BINARY = imago
 
 build:
 	@echo "Building..."
-	go build $(GOFLAGS) ./cmd/$(BINARY)
+	CGO_ENABLED=0 go build $(GOFLAGS) ./cmd/$(BINARY)
 
 dist:
 ifeq ($(findstring dirty,$(VERSION)),dirty)
@@ -30,8 +30,9 @@ else
 			if [ "$$os" = "windows" ]; then \
 				ext=".exe"; \
 			fi; \
-			GOOS=$$os GOARCH=$$arch go build $(GOFLAGS) -o dist/$(BINARY)-$$os-$$arch$$ext ./cmd/$(BINARY) &>/dev/null \
-				&& echo "Built for $$os $$arch" || :; \
+			CGO_ENABLED=0 GOOS=$$os GOARCH=$$arch \
+				go build $(GOFLAGS) -o dist/$(BINARY)-$$os-$$arch$$ext ./cmd/$(BINARY) &>/dev/null && \
+			echo "Built for $$os $$arch" || :; \
 			strip dist/$(BINARY)-$$os-$$arch$$ext &>/dev/null || :; \
 		done; \
 	done
