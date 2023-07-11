@@ -13,7 +13,7 @@ Imago can get the image from file or standard input, and can save image in a new
 
 You should refer to the `help` commands for each subcommand.
 
-> Note: for all the commands, using "`-`" as input or output filename result of using standard input and standard ouput.
+> Note: for all the commands, using "`-`" as input or output filename results of using standard input and standard ouput.
 
 ## Drop shadow
 
@@ -47,13 +47,15 @@ Flags:
 
 # Installation
 
-## Using "Go"
+## Using "`go intall`"
 
 You can install the binary for your platform using `go install`:
 
 ```bash
-go install -u github.com/metal3d/imago@latest
+go install -u github.com/metal3d/imago/cmd/imago@latest
 ```
+
+You should, then, get the `imago` command if you correctly configured your `PATH` with `GOBIN` indide. If not, please refer to the Go documentation.
 
 ## Get the release
 
