@@ -13,10 +13,11 @@ Imago can get the image from file or standard input, and can save image in a new
 
 You should refer to the `help` commands for each subcommand.
 
+> Note: for all the commands, using "`-`" as input or output filename result of using standard input and standard ouput.
+
 ## Drop shadow
 
-```bash
-
+```shell
 Add a drop shadow to an image
 
 Usage:
@@ -32,7 +33,7 @@ Flags:
 
 ## Resize
 
-```bash
+```shell
 Resize an image
 
 Usage:
