@@ -9,7 +9,7 @@ import (
 	"image/png"
 	"log"
 	"os"
-	dropshadow "shagow/shadow"
+	"simpleimage/operations"
 )
 
 var (
@@ -58,12 +58,12 @@ func main() {
 	}
 
 	// drop shadow
-	options := dropshadow.NewDropShadowOptions()
+	options := operations.NewDropShadowOptions()
 	options.Size = *size
 	options.Sigma = *sigma
 	options.Opacity = *opacity
 	options.Offset = image.Pt(*offset, *offset)
-	newImage := dropshadow.DropShadow(im, options)
+	newImage := operations.DropShadow(im, options)
 
 	// encode
 	dest, err := os.Create(destFile)

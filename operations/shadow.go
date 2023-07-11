@@ -1,4 +1,4 @@
-package dropshadow
+package operations
 
 import (
 	"image"

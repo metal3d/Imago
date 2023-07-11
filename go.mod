@@ -1,4 +1,4 @@
-module shagow
+module simpleimage // github.com/metal3d/simpleimage
 
 go 1.20
 
