@@ -13,13 +13,13 @@ ARCH = amd64 386 arm arm64 ppc64le ppc64 mips64 mips64le mips mipsle
 GPG_SIGN = metal3d@gmail.com
 
 GOFLAGS = -ldflags "-X main.version=$(VERSION)"
+BINARY = imago
 
 build:
 	@echo "Building..."
-	go build $(GOFLAGS) ./cmd/dropshadow
+	go build $(GOFLAGS) ./cmd/$(BINARY)
 
 dist:
-# if -dirty is present, we don't build
 ifeq ($(findstring dirty,$(VERSION)),dirty)
 	@echo "Dirty version, not building"
 else
@@ -30,19 +30,21 @@ else
 			if [ "$$os" = "windows" ]; then \
 				ext=".exe"; \
 			fi; \
-			GOOS=$$os GOARCH=$$arch go build $(GOFLAGS) -o dist/dropshadow-$$os-$$arch$$ext ./cmd/dropshadow &>/dev/null \
+			GOOS=$$os GOARCH=$$arch go build $(GOFLAGS) -o dist/$(BINARY)-$$os-$$arch$$ext ./cmd/$(BINARY) &>/dev/null \
 				&& echo "Built for $$os $$arch" || :; \
-			strip dist/dropshadow-$$os-$$arch$$ext &>/dev/null || :; \
+			strip dist/$(BINARY)-$$os-$$arch$$ext &>/dev/null || :; \
 		done; \
 	done
 endif
 
 gpg-sign:
-	@echo "Signing binaries..."
+	@echo "Signing binaries with signer $(GPG_SIGN)..."
 	@for file in dist/*; do \
-		gpg --armor --detach-sign $$file; \
+		if [ "$${file##*.}" = "asc" ]; then \
+			continue; \
+		fi; \
+		gpg --armor --detach-sign --local-user $(GPG_SIGN) $$file; \
 	done
-
 
 clean:
 	@echo "Cleaning..."

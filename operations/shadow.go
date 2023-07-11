@@ -33,7 +33,7 @@ func NewDropShadowOptions() *DropShadowOptions {
 }
 
 // DropShadow takes an image, and returns a new image with a drop shadow.
-func DropShadow(img image.Image, options *DropShadowOptions) image.Image {
+func DropShadow(img image.Image, options *DropShadowOptions) (image.Image, error) {
 	if options == nil {
 		options = NewDropShadowOptions()
 	}
@@ -60,6 +60,6 @@ func DropShadow(img image.Image, options *DropShadowOptions) image.Image {
 	shadow = imaging.Blur(shadow, options.Sigma)
 	shadow = imaging.Overlay(shadow, img, image.Pt(options.Size, options.Size), 1)
 
-	return shadow
+	return shadow, nil
 
 }
