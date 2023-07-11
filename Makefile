@@ -1,6 +1,12 @@
 .PHONY: build clean dist
 
-VERSION := "$(shell git describe --abbrev=4 --dirty --always --tags)"
+VERSION=$(shell \
+	git describe --exact-match --tags --dirty 2>/dev/null || \
+	printf "%s-%s%s" \
+		$(shell git branch --show-current) \
+		$(shell git log -n1 --pretty=%h) \
+		$(shell git diff --quiet || echo "-dirty") \
+)
 
 TRG = linux darwin windows freebsd
 ARCH = amd64 386 arm arm64 ppc64le ppc64 mips64 mips64le mips mipsle
