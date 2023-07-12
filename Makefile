@@ -12,7 +12,7 @@ TRG = linux darwin windows freebsd
 ARCH = amd64 386 arm arm64 ppc64le ppc64 mips64 mips64le mips mipsle
 GPG_SIGN = metal3d@gmail.com
 
-GOFLAGS = -ldflags "-X main.version=$(VERSION)"
+GOFLAGS = ""
 BINARY = imago
 
 build:

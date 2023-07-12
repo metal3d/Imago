@@ -1,20 +1,15 @@
 package main
 
 import (
-	"debug/buildinfo"
 	"fmt"
 	"image"
 	_ "image/gif"
 	_ "image/jpeg"
-	"os"
+	"runtime/debug"
 	"strings"
 
 	"github.com/metal3d/imago/operations"
 	"github.com/spf13/cobra"
-)
-
-var (
-	version = "dev" // set by Makefile
 )
 
 func main() {
@@ -29,20 +24,12 @@ func main() {
 		Short: "Print the version number of application",
 		Long:  `Print the version number of application`,
 		Run: func(cmd *cobra.Command, args []string) {
-			if version == "dev" {
-				version = func(v string) string {
-					bin, err := os.Executable()
-					if err != nil {
-						return v
-					}
-					content, err := buildinfo.ReadFile(bin)
-					if err != nil {
-						return v
-					}
-					return content.Main.Version
-				}(version)
+			content, ok := debug.ReadBuildInfo()
+			if ok {
+				fmt.Println(content.Main.Version)
+			} else {
+				fmt.Println("devel")
 			}
-			fmt.Println(version)
 		},
 	}
 
