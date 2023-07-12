@@ -24,6 +24,8 @@ ifeq ($(findstring dirty,$(VERSION)),dirty)
 	@echo "Dirty version, not building"
 else
 	@echo "Building for all platforms..."
+	rm -rf dist/
+	mkdir -p dist/
 	@for os in $(TRG); do \
 		for arch in $(ARCH); do \
 			ext=""; \
