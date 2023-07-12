@@ -12,7 +12,7 @@ TRG = linux darwin windows freebsd
 ARCH = amd64 386 arm arm64 ppc64le ppc64 mips64 mips64le mips mipsle
 GPG_SIGN = metal3d@gmail.com
 
-GOFLAGS = ""
+GOFLAGS = "-ldflags=-s -w -X main.version=$(VERSION)"
 BINARY = imago
 
 build:
@@ -26,8 +26,12 @@ else
 	@echo "Building for all platforms..."
 	rm -rf dist
 	mkdir -p dist
+	echo "Version: $(VERSION)"
+	echo "Platforms: $(TRG)"
 	@for os in $(TRG); do \
+		echo "Building for $$os..."; \
 		for arch in $(ARCH); do \
+			echo "Building for $$os $$arch..."; \
 			ext=""; \
 			if [ "$$os" = "windows" ]; then \
 				ext=".exe"; \

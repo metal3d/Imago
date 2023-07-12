@@ -12,6 +12,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var version string
+
 func main() {
 	rootCmd := &cobra.Command{
 		Use:   "imago",
@@ -24,6 +26,11 @@ func main() {
 		Short: "Print the version number of application",
 		Long:  `Print the version number of application`,
 		Run: func(cmd *cobra.Command, args []string) {
+			if version != "" {
+				fmt.Println(version)
+				return
+
+			}
 			content, ok := debug.ReadBuildInfo()
 			if ok {
 				fmt.Println(content.Main.Version)
