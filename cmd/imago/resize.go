@@ -11,13 +11,13 @@ import (
 func resize(input, output string, options *operations.ResizeOptions) error {
 	Log(fmt.Sprintf("Resize: %v -> %v", input, output))
 
-	inStream, err := getStream(&input, os.Stdin)
+	inStream, err := inputStream(&input, os.Stdin)
 	if err != nil {
 		return fmt.Errorf("failed to open image: %w", err)
 	}
 	defer inStream.Close()
 
-	outStream, err := getStream(&output, os.Stdout)
+	outStream, err := outputStream(&output, os.Stdout)
 	if err != nil {
 		return fmt.Errorf("failed to open image: %w", err)
 	}

@@ -21,7 +21,19 @@ func Log(msg string) {
 	fmt.Fprintln(os.Stderr, msg)
 }
 
-func getStream(filename *string, stream *os.File) (*os.File, error) {
+func inputStream(filename *string, stream *os.File) (*os.File, error) {
+	if filename == nil || *filename == "-" {
+		return stream, nil
+	} else {
+		inStream, err := os.Open(*filename)
+		if err != nil {
+			return nil, fmt.Errorf("failed to open image: %w", err)
+		}
+		return inStream, nil
+	}
+}
+
+func outputStream(filename *string, stream *os.File) (*os.File, error) {
 	if filename == nil || *filename == "-" {
 		return stream, nil
 	} else {
