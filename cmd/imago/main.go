@@ -17,25 +17,6 @@ var (
 	version = "dev" // set by Makefile
 )
 
-func init() {
-	initVersion()
-}
-
-// get the current module version
-func initVersion() {
-	if version == "dev" {
-		bin, err := os.Executable()
-		if err != nil {
-			return
-		}
-		content, err := buildinfo.ReadFile(bin)
-		if err != nil {
-			return
-		}
-		version = content.Main.Version
-	}
-}
-
 func main() {
 	rootCmd := &cobra.Command{
 		Use:   "imago",
@@ -48,6 +29,17 @@ func main() {
 		Short: "Print the version number of application",
 		Long:  `Print the version number of application`,
 		Run: func(cmd *cobra.Command, args []string) {
+			if version == "dev" {
+				bin, err := os.Executable()
+				if err != nil {
+					return
+				}
+				content, err := buildinfo.ReadFile(bin)
+				if err != nil {
+					return
+				}
+				version = content.Main.Version
+			}
 			fmt.Println(version)
 		},
 	}
