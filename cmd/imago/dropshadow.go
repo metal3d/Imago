@@ -16,12 +16,6 @@ func dropShadow(input, output string, options *operations.DropShadowOptions) err
 	}
 	defer inStream.Close()
 
-	outStream, err := outputStream(&output)
-	if err != nil {
-		return fmt.Errorf("failed to open image: %w", err)
-	}
-	defer outStream.Close()
-
 	// decode
 	im, err := decodeImageFile(inStream)
 	if err != nil {
@@ -34,8 +28,11 @@ func dropShadow(input, output string, options *operations.DropShadowOptions) err
 		return fmt.Errorf("failed to drop shadow: %w", err)
 	}
 
-	// encode
-
+	outStream, err := outputStream(&output)
+	if err != nil {
+		return fmt.Errorf("failed to open image: %w", err)
+	}
+	defer outStream.Close()
 	err = png.Encode(outStream, newImage)
 	if err != nil {
 		return fmt.Errorf("failed to encode image: %w", err)
