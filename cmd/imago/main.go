@@ -7,7 +7,10 @@ import (
 	_ "image/gif"
 	_ "image/jpeg"
 	"os"
+<<<<<<< HEAD
 	"path/filepath"
+=======
+>>>>>>> 30a2186 (Use buildinfo to set version)
 	"strings"
 
 	"github.com/metal3d/imago/operations"
@@ -19,10 +22,20 @@ var (
 )
 
 func init() {
-	// get the current module version
+	initVersion()
+}
+
+// get the current module version
+func initVersion() {
 	if version == "dev" {
-		path, _ := filepath.Abs(os.Args[0])
-		content, _ := buildinfo.ReadFile(path)
+		bin, err := os.Executable()
+		if err != nil {
+			return
+		}
+		content, err := buildinfo.ReadFile(bin)
+		if err != nil {
+			return
+		}
 		version = content.Main.Version
 	}
 }
