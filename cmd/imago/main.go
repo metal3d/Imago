@@ -30,15 +30,17 @@ func main() {
 		Long:  `Print the version number of application`,
 		Run: func(cmd *cobra.Command, args []string) {
 			if version == "dev" {
-				bin, err := os.Executable()
-				if err != nil {
-					return
-				}
-				content, err := buildinfo.ReadFile(bin)
-				if err != nil {
-					return
-				}
-				version = content.Main.Version
+				version = func(v string) string {
+					bin, err := os.Executable()
+					if err != nil {
+						return v
+					}
+					content, err := buildinfo.ReadFile(bin)
+					if err != nil {
+						return v
+					}
+					return content.Main.Version
+				}(version)
 			}
 			fmt.Println(version)
 		},
