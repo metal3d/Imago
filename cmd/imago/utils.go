@@ -9,6 +9,7 @@ import (
 	"os"
 )
 
+// decodeImageFile decodes an image from the given file handle.
 func decodeImageFile(input *os.File) (image.Image, error) {
 	im, _, err := image.Decode(input)
 	if err != nil {
@@ -21,9 +22,10 @@ func Log(msg string) {
 	fmt.Fprintln(os.Stderr, msg)
 }
 
-func inputStream(filename *string, stream *os.File) (*os.File, error) {
+// inputStream returns a file handle for the input file, or os.Stdin if the input file is nil or "-".
+func inputStream(filename *string) (*os.File, error) {
 	if filename == nil || *filename == "-" {
-		return stream, nil
+		return os.Stdin, nil
 	} else {
 		inStream, err := os.Open(*filename)
 		if err != nil {
@@ -33,9 +35,10 @@ func inputStream(filename *string, stream *os.File) (*os.File, error) {
 	}
 }
 
-func outputStream(filename *string, stream *os.File) (*os.File, error) {
+// outputStream returns a file handle for the output file, or os.Stdout if the output file is nil or "-".
+func outputStream(filename *string) (*os.File, error) {
 	if filename == nil || *filename == "-" {
-		return stream, nil
+		return os.Stdout, nil
 	} else {
 		inStream, err := os.Create(*filename)
 		if err != nil {

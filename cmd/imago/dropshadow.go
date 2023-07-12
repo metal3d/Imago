@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"image/png"
-	"os"
 
 	"github.com/metal3d/imago/operations"
 )
@@ -11,13 +10,13 @@ import (
 func dropShadow(input, output string, options *operations.DropShadowOptions) error {
 	Log(fmt.Sprintf("DropShadow: %v -> %v", input, output))
 
-	inStream, err := inputStream(&input, os.Stdin)
+	inStream, err := inputStream(&input)
 	if err != nil {
 		return fmt.Errorf("failed to open image: %w", err)
 	}
 	defer inStream.Close()
 
-	outStream, err := outputStream(&output, os.Stdout)
+	outStream, err := outputStream(&output)
 	if err != nil {
 		return fmt.Errorf("failed to open image: %w", err)
 	}
