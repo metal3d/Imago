@@ -7,10 +7,6 @@ import (
 	_ "image/gif"
 	_ "image/jpeg"
 	"os"
-<<<<<<< HEAD
-	"path/filepath"
-=======
->>>>>>> 30a2186 (Use buildinfo to set version)
 	"strings"
 
 	"github.com/metal3d/imago/operations"
