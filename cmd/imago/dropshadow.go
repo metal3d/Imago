@@ -10,6 +10,7 @@ import (
 func dropShadow(input, output string, options *operations.DropShadowOptions) error {
 	Log(fmt.Sprintf("DropShadow: %v -> %v", input, output))
 
+	// open input file / stdin
 	inStream, err := inputStream(&input)
 	if err != nil {
 		return fmt.Errorf("failed to open image: %w", err)
@@ -28,6 +29,7 @@ func dropShadow(input, output string, options *operations.DropShadowOptions) err
 		return fmt.Errorf("failed to drop shadow: %w", err)
 	}
 
+	// encode to output file / stdout
 	outStream, err := outputStream(&output)
 	if err != nil {
 		return fmt.Errorf("failed to open image: %w", err)
