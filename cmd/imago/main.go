@@ -1,14 +1,13 @@
 package main
 
 import (
+	"debug/buildinfo"
 	"fmt"
 	"image"
 	_ "image/gif"
 	_ "image/jpeg"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"regexp"
 	"strings"
 
 	"github.com/metal3d/imago/operations"
@@ -22,26 +21,9 @@ var (
 func init() {
 	// get the current module version
 	if version == "dev" {
-		// run go version -m to get the module version
-		binpath, err := filepath.Abs(os.Args[0])
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		cmd := exec.Command("go", "version", "-m", binpath)
-		out, err := cmd.Output()
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		// find "imago" in the output
-		for _, line := range strings.Split(string(out), "\n") {
-			if strings.Contains(line, "imago") && strings.Contains(line, "mod") {
-				parts := regexp.MustCompile(`\s+`).Split(line, -1)
-				version = parts[3]
-				break
-			}
-		}
+		path, _ := filepath.Abs(os.Args[0])
+		content, _ := buildinfo.ReadFile(path)
+		version = content.Main.Version
 	}
 }
 
